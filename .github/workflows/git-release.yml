@@ -1,0 +1,26 @@
+name: Django CI/CD
+
+on:
+  # 在 push 到 main 分支 的时候触发
+  push:
+    branches: [ "main" ]
+
+# 具体任务配置
+jobs:
+  deploy:
+    # 指定运行环境
+    runs-on: ubuntu-latest
+
+    # 具体的步骤
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to server
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST }}
+          REMOTE_USER: ${{ secrets.USER }}
+          SOURCE: "/"
+          TARGET: "/home/CurtainWallWeb-Backend/"
