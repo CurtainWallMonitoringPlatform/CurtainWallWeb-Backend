@@ -8,7 +8,7 @@
 from django.db import models
 
 class Deviceinfo(models.Model):
-    deviceid = models.CharField(db_column='deviceId', primary_key=True, max_length=20)  # Field name made lowercase.
+    deviceid = models.AutoField(db_column='deviceId', primary_key=True, max_length=20)  # Field name made lowercase.
     devicename = models.CharField(db_column='deviceName', max_length=20)  # Field name made lowercase.
     offset = models.FloatField()
     loweroutlier = models.FloatField(db_column='lowerOutlier')  # Field name made lowercase.

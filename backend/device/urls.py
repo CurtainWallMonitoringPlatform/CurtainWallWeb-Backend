@@ -14,12 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import include,path
+from django.urls import path
+
+from . import views
+from device.views import DeviceAPI
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    # path("setting/", include("setting.urls")),
-    path("device/", include("device.urls")),
-    path("api/monitor/",include("monitor.urls"))
+    # path("", views.index, name="index"),
+    path('api/device/all',DeviceAPI.as_view({'get': 'get_all_device'})),
+    path('api/device/single/<deviceId>/', DeviceAPI.as_view({'get': 'get_single_device'})),
+    path('api/device/add', DeviceAPI.as_view({'post': 'add_device'})),
+    path('api/device/delete/<deviceId>/', DeviceAPI.as_view({'delete': 'delete_device'})),
+    path('api/device/modify/<deviceId>/', DeviceAPI.as_view({'put': 'modify_device'})),
+    
 ]
