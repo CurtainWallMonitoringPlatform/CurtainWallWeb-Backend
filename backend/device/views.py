@@ -86,7 +86,7 @@ class DeviceAPI(GenericViewSet):
     def get_single_device(self, request,**kwargs):
         
         device_id = kwargs.get('deviceId')  #前端通过path传参
-        #print('deviceId:',device_id)
+        print('deviceId:',device_id)
         #device_id = request.GET.get('deviceId')
         #devices = self.get_queryset()
         device = get_object_or_404(Deviceinfo,deviceid = device_id )
@@ -119,8 +119,6 @@ class DeviceAPI(GenericViewSet):
                 "data": []
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        
-
 
     # 新增设备
     @action(methods=['post'], detail=False)
@@ -130,8 +128,19 @@ class DeviceAPI(GenericViewSet):
             lower_ouliter = float(request.GET.get('lowerOuliter'))
             higher_ouliter = float(request.GET.get('higherOuliter'))
             offSet = float(request.GET.get('offset', '0'))
-            
+            device_Id = request.GET.get('deviceId')
+
+            #检查ID是否已存在
+            if Deviceinfo.objects.filter(deviceid=device_Id).exists():
+                error_response = {
+                    "code": 409,
+                    "msg": "设备ID已存在"
+                }
+                return Response(error_response, status=status.HTTP_409_CONFLICT)
+
+
             device = Deviceinfo(
+                deviceid =device_Id,
                 devicename=device_name,
                 offset=offSet,
                 loweroutlier=lower_ouliter,
@@ -175,6 +184,7 @@ class DeviceAPI(GenericViewSet):
         #如果找不到指定主键的对象，将引发HTTP 404错误。
         device.delete()
         return Response({
+            "code": 200,
             'message':'成功删除设备'
         },status=status.HTTP_200_OK)
     

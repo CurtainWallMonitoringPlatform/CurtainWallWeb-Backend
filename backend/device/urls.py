@@ -21,10 +21,10 @@ from device.views import DeviceAPI
 
 urlpatterns = [
     # path("", views.index, name="index"),
-    path('api/device/all',DeviceAPI.as_view({'get': 'get_all_device'})),
-    path('api/device/single/<deviceId>/', DeviceAPI.as_view({'get': 'get_single_device'})),
-    path('api/device/add', DeviceAPI.as_view({'post': 'add_device'})),
-    path('api/device/delete/<deviceId>/', DeviceAPI.as_view({'delete': 'delete_device'})),
-    path('api/device/modify/<deviceId>/', DeviceAPI.as_view({'put': 'modify_device'})),
+    path('all',DeviceAPI.as_view({'get': 'get_all_device'})),
+    path('get/<deviceId>', DeviceAPI.as_view({'get': 'get_single_device'})),
+    path('addDevice', DeviceAPI.as_view({'post': 'add_device'})),
+    path('delete/<deviceId>', DeviceAPI.as_view({'delete': 'delete_device'})),
+    path('modify/<deviceId>', DeviceAPI.as_view({'put': 'modify_device'})),
     
 ]
