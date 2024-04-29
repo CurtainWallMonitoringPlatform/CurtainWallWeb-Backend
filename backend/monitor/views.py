@@ -100,21 +100,27 @@ def get_abnormal_data(request):
         x_data = []
         y_data = []
         z_data = []
-        time_data = []
+        x_time = []
+        y_time = []
+        z_time = []
         for entry in abnormal_data:
             if entry.direction == 'X':
                 x_data.append(entry.data)
+                x_time.append(entry.recordtime.strftime("%Y-%m-%d %H:%M:%S"))
             elif entry.direction == 'Y':
                 y_data.append(entry.data)
+                y_time.append(entry.recordtime.strftime("%Y-%m-%d %H:%M:%S"))
             elif entry.direction == 'Z':
                 z_data.append(entry.data)
-            time_data.append(entry.recordtime.strftime("%Y-%m-%d %H:%M:%S"))
+                z_time.append(entry.recordtime.strftime("%Y-%m-%d %H:%M:%S"))
         # 构建返回数据结构
         data = {
             "xData": x_data,
             "yData": y_data,
             "zData": z_data,
-            "time": time_data,
+            "xTime": x_time,
+            "yTime": y_time,
+            "zTime": z_time,
             "deviceInfo": {}
         }
         # 如果指定了设备编号，则查询设备信息
