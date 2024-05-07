@@ -60,7 +60,7 @@ class DeviceAPI(GenericViewSet):
                     #"online": device.online_status,
                     "offset": device.offset,
                     "lowerOuliter": device.loweroutlier,
-                    "higherOutlier": device.upperoutlier
+                    "higherOuliter": device.upperoutlier
                 }
                 result.append(device_data)
 
@@ -99,7 +99,7 @@ class DeviceAPI(GenericViewSet):
                 "deviceId": device.deviceid,
                 "offset": device.offset,
                 "lowerOuliter": device.loweroutlier,
-                "higherOutlier": device.upperoutlier
+                "higherOuliter": device.upperoutlier
             }
             result.append(device_data)
 
