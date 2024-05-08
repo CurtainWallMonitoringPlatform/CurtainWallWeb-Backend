@@ -191,15 +191,18 @@ class DeviceAPI(GenericViewSet):
     # 修改设备信息
     @action(methods=['put'],detail=False)
     def modify_device(self,request,**kwargs):
+        print(request.data) 
         device_id = kwargs.get('deviceId')  #前端通过path传参
         #device_id = request.GET.get('deviceId')
-        device = get_object_or_404(Deviceinfo, deviceid = device_id)  
+        device = get_object_or_404(Deviceinfo, deviceid = device_id) 
+        
         try:
-            device_name = request.data.get('deviceName')
-            lower_ouliter = float(request.data.get('lowerOuliter'))
-            higher_ouliter = float(request.data.get('higherOuliter'))
-            offSet = float(request.data.get('offset', '0'))
-
+            device_name = request.GET.get('deviceName')
+            lower_ouliter = float(request.GET.get('lowerOuliter'))
+            higher_ouliter = float(request.GET.get('higherOuliter'))
+            offSet = float(request.GET.get('offset'))
+            
+            device.deviceid = device_id
             device.devicename = device_name
             device.offset = offSet
             device.loweroutlier = lower_ouliter
