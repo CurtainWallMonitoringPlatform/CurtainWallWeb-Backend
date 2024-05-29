@@ -195,3 +195,16 @@ class Supervisorinfo(models.Model):
     class Meta:
         managed = False
         db_table = 'supervisorInfo'
+
+
+
+class Warning(models.Model):
+    id = models.CharField(primary_key=True, max_length=20)
+    deviceid = models.CharField(db_column='deviceId', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    push_time = models.DateTimeField(blank=True, null=True)
+    level = models.CharField(max_length=10, blank=True, null=True)
+    emails = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'warning'
